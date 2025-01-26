@@ -57,34 +57,34 @@ float pikachu[][2] = {
 
 void setup() {
   M5.Lcd.setFont(&fonts::lgfxJapanGothicP_32); 
-  StickCP2.begin();                  // ディスプレイを初期化
-  StickCP2.Lcd.setTextSize(1);       // フォントサイズを設定
-  StickCP2.Lcd.setRotation(0);       // 画面の向きを設定
-  StickCP2.Lcd.setTextColor(WHITE);  // テキストカラーを設定
+  StickCP2.begin();                  
+  StickCP2.Lcd.setTextSize(1);       
+  StickCP2.Lcd.setRotation(0);       
+  StickCP2.Lcd.setTextColor(WHITE);  
   M5.Speaker.setVolume(255);
 }
 
 void loop() {
-  int valG26 = analogRead(PinG26);  // G26ピンのアナログ値を取得
-  int valG36 = analogRead(PinG36);  // G36ピンのアナログ値を取得
+  int valG26 = analogRead(PinG26);  
+  int valG36 = analogRead(PinG36);  
   
-  StickCP2.Lcd.fillScreen(BLACK);            // 画面をクリア
-  StickCP2.Lcd.setCursor(0, 0);              // カーソルを(0, 0)に移動
-  StickCP2.Lcd.printf("L:     %d\n", valG26);  // G26ピンのアナログ値を表示
-  StickCP2.Lcd.printf("R:     %d\n", valG36);  // G36ピンのアナログ値を表示
+  StickCP2.Lcd.fillScreen(BLACK);            
+  StickCP2.Lcd.setCursor(0, 0);
+  StickCP2.Lcd.printf("L:     %d\n", valG26); 
+  StickCP2.Lcd.printf("R:     %d\n", valG36);
 
   // G26またはG36が0の場合に音を鳴らす
   if (valG26 == 0 || valG36 == 0) {
-    StickCP2.Lcd.fillScreen(YELLOW);  // ディスプレイを黄色で塗りつぶす
-    StickCP2.Lcd.setTextColor(BLACK); // テキストカラーを黒に設定
+    StickCP2.Lcd.fillScreen(YELLOW);  
+    StickCP2.Lcd.setTextColor(BLACK);
     StickCP2.Lcd.setTextSize(1); 
-    StickCP2.Lcd.setCursor(20, 20);   // テキストの位置を設定
-    StickCP2.Lcd.printf("ピカァ"); // 日本語で「ピカァ！！」を表示
+    StickCP2.Lcd.setCursor(20, 20); 
+    StickCP2.Lcd.printf("ピカァ");
     for (int i = 0; i < sizeof(pikachu) / sizeof(pikachu[0]); i++) {
         M5.Speaker.tone(pikachu[i][0]);
-        delay(pikachu[i][1] * 0.8);  // 音符の長さの90%鳴らす
-        M5.Speaker.stop();           // 音を止める
-        delay(pikachu[i][1] * 0.1);  // 音符間の10%休止
+        delay(pikachu[i][1] * 0.8);
+        M5.Speaker.stop();
+        delay(pikachu[i][1] * 0.1);
     }
     M5.Speaker.stop();
   }
